@@ -1,0 +1,90 @@
+/* 全体設定 */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0; /* 背景色 */
+    display: flex;
+    justify-content: center; /* 水平方向のセンタリング */
+    align-items: center; /* 垂直方向のセンタリング */
+    height: 100vh; /* ビューポート全体の高さを使用 */
+}
+
+/* コンテナ設定 */
+.container {
+    text-align: center; /* テキストを中央揃え */
+}
+
+/* ログインフォーム設定 */
+h1 {
+    margin-bottom: 20px;
+    color: #37474F; /* タイトルの色 */
+}
+
+form {
+    background-color: #ffffff; /* フォームの背景色 */
+    border-radius: 8px; /* 角の丸み */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* シャドウ効果 */
+    padding: 30px; /* パディング */
+    width: 300px; /* 幅の設定 */
+    margin: 0 auto; /* 自動マージンで中央配置 */
+}
+
+/* ラベルと入力フィールド設定 */
+label {
+    display: block; /* ブロック要素として表示 */
+    margin-bottom: 5px; /* 下部余白 */
+    color: #37474F; /* ラベルの色 */
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%; /* 幅を100%に */
+    padding: 10px; /* 内側の余白 */
+    margin-bottom: 15px; /* 下部余白 */
+    border: 1px solid #ccc; /* ボーダー */
+    border-radius: 4px; /* 角の丸み */
+    box-sizing: border-box; /* パディングとボーダーを含めた幅の計算 */
+}
+
+/* ログインボタン設定 */
+button.login {
+    background-color: #37474F; /* ログインボタンの背景色 */
+    color: #ffffff; /* テキストの色 */
+    border: none; /* ボーダーなし */
+    padding: 10px 15px; /* 内側の余白 */
+    border-radius: 4px; /* 角の丸み */
+    cursor: pointer; /* カーソルをポインタに変更 */
+    width: 100%; /* 幅を100%に */
+    transition: background-color 0.3s ease; /* ホバー時のトランジション */
+}
+
+button.login:hover {
+    background-color: #49d7ff; /* ホバー時の色 */
+}
+
+/* 新規登録ボタン設定 */
+button.register {
+    background-color: rgb(255, 255, 255); /* 新規登録ボタンの背景色 */
+    color: #37474F; /* テキストの色 */
+    border: none; /* ボーダーなし */
+    padding: 10px 15px; /* 内側の余白 */
+    border-radius: 4px; /* 角の丸み */
+    cursor: pointer; /* カーソルをポインタに変更 */
+    width: 100%; /* 幅を100%に */
+    transition: background-color 0.3s ease; /* ホバー時のトランジション */
+}
+
+button.register:hover {
+    background-color: #49d7ff; /* ホバー時の色 */
+}
+
+/* エラーメッセージの設定 */
+p {
+    text-align: center; /* 中央揃え */
+    margin: 15px 0; /* 上下の余白 */
+}
+
+/* 新規登録ボタンの位置設定 */
+.register-button {
+    margin-top: 20px; /* 上部余白を追加 */
+}

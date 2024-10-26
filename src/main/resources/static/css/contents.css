@@ -1,0 +1,26 @@
+﻿body{
+	background-color: #fefff7;
+}
+
+h1{
+	text-align:center;
+}
+
+div.contents_main{
+	height: 500px;
+	float: right;
+	/*width: 584.42‬px;*/
+	color: #999999;
+	padding: 0 30px 0;
+}
+
+img.contents_img{
+	background-color: #ffffff;
+	margin: 15px;
+}
+
+iframe.contents_main{
+	width: 64.99%;
+	height: 500px;
+	margin-left: 315.58px;
+}

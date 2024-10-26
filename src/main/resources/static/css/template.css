@@ -1,0 +1,40 @@
+/* 全体設定 */
+body {
+    margin-left: 360px;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0; /* 背景色 */
+}
+
+/* コンテンツの設定 */
+.content {
+    max-width: 800px; /* 最大幅の設定 */
+    margin: 20px auto; /* 上下に余白を設定し、中央揃え */
+    padding: 20px; /* 内側の余白 */
+    background-color: #ffffff; /* 背景色 */
+    border-radius: 8px; /* 角の丸み */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* シャドウ効果 */
+}
+
+/* タイトルのスタイル */
+h1 {
+    color: #37474F; /* タイトルの色 */
+    margin-bottom: 10px; /* 下部余白 */
+}
+
+/* コンテンツ本文のスタイル */
+p {
+    color: #555; /* テキストの色 */
+    line-height: 1.6; /* 行の高さを設定 */
+    margin-bottom: 20px; /* 下部余白 */
+}
+
+/* リンクのスタイル */
+a {
+    color: #1e88e5; /* リンクの色 */
+    text-decoration: none; /* 下線を消す */
+    font-weight: bold; /* 太字にする */
+}
+
+a:hover {
+    text-decoration: underline; /* ホバー時に下線を表示 */
+}

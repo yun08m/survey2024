@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" />
+    <link href="/css/index.css" th:href="@{/css/index.css}" rel="stylesheet"></link>
+    <title>AIRS index demo</title>
+</head>
+
+<body>
+<div class="main">
+    <header class="menu">
+        <h1 class="title"><img src="../images/AIRS.png" height="45"></h1>
+        <ul class="navi">
+            <li class="navi_item"><a target="mainPage" class="navi_item_link" href="/contents"><img src="../images/home.png"></a></li>
+            <li class="navi_item"><a class="navi_item_link" href="https://twitter.com/share?url=http://airs.sie.dendai.ac.jp/AIRS/top/&via=AIRS_Authoring&related=AIRS_Authoring&text=AIRS公式サイト　TOP PAGE" rel="nofollow" target="_blank"><img src="../images/twitter.png"></a></li>
+            <li class="navi_item"><a class="navi_item_link" href="#"><img src="../images/menu.png"> <span class="caret"></span></a>
+                <ul class="sub_navi">
+                    <li class="sub_navi_item_freeze"><a class="sub_navi_item_link_freeze" href="#">登録情報変更</a></li>
+                    <li class="sub_navi_item"><a target="mainPage" class="sub_navi_item_link" href="/question">よくある質問</a></li>
+                    <li class="sub_navi_item"><a target="mainPage" class="sub_navi_item_link" href="/contact">問い合わせ</a></li>
+                    <li class="sub_navi_item_freeze"><a class="sub_navi_item_link_freeze" href="login">ログイン</a></li>
+                </ul>
+            </li>
+            <li th:if="${session.loggedInUser}" class="navi_item">
+                <p>name: <span th:text="${session.loggedInUser}"></span></p>
+            </li>
+            <li th:if="${session.loggedInUser == null}" class="navi_item">
+                <a href="/login">ログイン</a>
+            </li>
+        </ul>
+    </header>
+    
+   
+   <div class="wrapper">
+    <div class="contents">
+        <div class="contents_navi">
+            <header class="contents_sub" >
+                <h1 class="contents_title" th:text="Processing"></h1>
+            </header>
+            <nav class="cp_sidebar_nav">
+                <ul>
+                    <!-- データの数だけ繰り返し -->
+                    <li th:each="data : ${contents}">
+                        <a target="mainPage" th:href="@{/chapter/{id}(id=${data.id})}">
+                            <i class="fa fa-calendar fa-fw"></i>
+                            <span th:text="${data.title}">Content Title</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>   
+    </div>
+        <!--<div>
+			<p>experience: <span th:text="${user.experiencePoints}">0</span></p>
+		</div>-->
+		<div class="experience">
+		  <p>Experience: 
+  			<span th:if="${user != null}" th:text="${user.experiencePoints}"></span>
+  			<span th:unless="${user != null}">データなし</span>
+		  </p>
+
+    	</div>
+    </div>
+
+    <!-- iframeを追加 -->
+    <div class="content-frame">
+        <iframe name="mainPage" src="/defaultPage" width="100%" height="600px"></iframe>
+    </div>
+</div>  
+</body>
+</html>
