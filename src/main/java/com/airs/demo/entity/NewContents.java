@@ -24,6 +24,12 @@ public class NewContents {
 
     @Column(columnDefinition = "TEXT")
     private String body;
+    
+    @Column(name = "body2", columnDefinition = "TEXT") 
+    private String body2;
+
+    @Column(name = "sample_code", columnDefinition = "TEXT")
+    private String sampleCode; 
 
     @Column(name = "content_address", columnDefinition = "VARCHAR(255)")
     private String contentAddress;
@@ -34,9 +40,11 @@ public class NewContents {
     // コンストラクタ
     public NewContents() {}
 
-    public NewContents(String title, String body, String contentAddress, LocalDateTime createdAt) {
+    public NewContents(String title, String body, String body2,String sampleCode, String contentAddress, LocalDateTime createdAt) {
         this.title = title;
         this.body = body;
+        this.body2 = body2; 
+        this.sampleCode = sampleCode; 
         this.contentAddress = contentAddress;
         this.createdAt = createdAt;
     }
@@ -65,6 +73,22 @@ public class NewContents {
     public void setBody(String body) {
         this.body = body;
     }
+    
+    public String getBody2() { // 新しく追加したgetter
+        return body2;
+    }
+
+    public void setBody2(String body2) { // 新しく追加したsetter
+        this.body2 = body2;
+    }
+
+    public String getSampleCode() { // 新しく追加したgetter
+        return sampleCode;
+    }
+
+    public void setSampleCode(String sampleCode) { // 新しく追加したsetter
+        this.sampleCode = sampleCode;
+    }
 
     public String getContentAddress() {
         return contentAddress;
@@ -88,6 +112,8 @@ public class NewContents {
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", body='" + body + '\'' +
+                ", body2='" + body2 + '\'' +  // 新しいフィールドの表示
+                ", sampleCode='" + sampleCode + '\'' +  // 新しいフィールドの表示
                 ", contentAddress='" + contentAddress + '\'' +
                 ", createdAt=" + createdAt +
                 '}';

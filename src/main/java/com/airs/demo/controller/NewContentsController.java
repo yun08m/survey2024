@@ -29,7 +29,7 @@ public class NewContentsController {
             
         }
         
-        return "contentTemplate"; // コンテンツテンプレートを返す
+        return "NewContentTemplate"; // コンテンツテンプレートを返す
     }
 
 

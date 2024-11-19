@@ -22,84 +22,94 @@ import java.util.List;
 
 @Controller
 public class HelloController {
-	
+
 	@Autowired
-    private NewContentsService newContentsService; // ここをクラスの先頭に移動
-    public HelloController(NewContentsService newContentsService) {
-        this.newContentsService = newContentsService;   
-    }
+	private NewContentsService newContentsService; // ここをクラスの先頭に移動
 
-    
- // 依存性注入
-    @Autowired
-    ContentRepository conRepository;
+	public HelloController(NewContentsService newContentsService) {
+		this.newContentsService = newContentsService;
+	}
 
-    @Autowired
-    SubjectRepository subRepository;
-    
-    @Autowired
-    private UserService userService; 
+	// 依存性注入
+	@Autowired
+	ContentRepository conRepository;
+
+	@Autowired
+	SubjectRepository subRepository;
+
+	@Autowired
+	private UserService userService;
+
+	@RequestMapping("/")
+	private ModelAndView index(ModelAndView mav, HttpSession session) {
+		mav.setViewName("index");
+
+		User user = (User) session.getAttribute("loggedInUser");
+
+		if (user != null) {
+	        /* コンソール表示 */
+	        System.out.println("Logged-in User Name: " + user.getName());
+	        System.out.println("User Experience Points from Session: " + user.getExperiencePoints());
+	        
+	     // レベルと残り経験値を計算
+	        int level = user.getExperiencePoints() / 100;
+	        int remainingExperience = user.getExperiencePoints() % 100;
+
+	        // ユーザー情報とレベル情報をビューに渡す
+	        mav.addObject("user", user);
+	        mav.addObject("level", level);
+	        mav.addObject("remainingExperience", remainingExperience);
+	        
+	        mav.addObject("user", user); // ユーザー情報を追加
+	    } else {
+	        System.out.println("User is not logged in.");
+	    }
+
+		Iterable<Content> conlist = conRepository.findAll();
+		Iterable<Subject> sublist = subRepository.findAll();
+		List<NewContents> newContentsList = newContentsService.getAllContents();
 
 
-    
 
-    @RequestMapping("/")
-    private ModelAndView index(ModelAndView mav, HttpSession session) {
-        mav.setViewName("index");
-        
-        String name = (String) session.getAttribute("loggedInUser");
-        if (name != null) {
-        	 User user = userService.findByName(name);
-            mav.addObject("user", user); // ユーザー情報を追加
-        }
-        
-        Iterable<Content> conlist = conRepository.findAll();
-        Iterable<Subject> sublist = subRepository.findAll();
-        List<NewContents> newContentsList = newContentsService.getAllContents();
-        
-        System.out.println(newContentsList);
-        
-        if (newContentsList == null || newContentsList.isEmpty()) {
-            System.out.println("NewContents is empty or null.");
-        }
-        
-        
-        mav.addObject("condata", conlist);
-        mav.addObject("subdata", sublist);
-        mav.addObject("contents", newContentsList); // new_contentsのデータを渡す
-        return mav;
-    }
+		if (newContentsList == null || newContentsList.isEmpty()) {
+			System.out.println("NewContents is empty or null.");
+		}
 
-    @RequestMapping("/contents")
-    private ModelAndView contents(ModelAndView mav) {
-        mav.setViewName("contents");
-        return mav;
-    }
+		mav.addObject("condata", conlist);
+		mav.addObject("subdata", sublist);
+		mav.addObject("contents", newContentsList); // new_contentsのデータを渡す
+		return mav;
+	}
 
-    @RequestMapping("/contact")
-    private ModelAndView contact(ModelAndView mav) {
-        mav.setViewName("contact");
-        return mav;
-    }
+	@RequestMapping("/contents")
+	private ModelAndView contents(ModelAndView mav) {
+		mav.setViewName("contents");
+		return mav;
+	}
 
-    @RequestMapping("/question")
-    private ModelAndView question(ModelAndView mav) {
-        mav.setViewName("question");
-        return mav;
-    }
+	@RequestMapping("/contact")
+	private ModelAndView contact(ModelAndView mav) {
+		mav.setViewName("contact");
+		return mav;
+	}
 
-    @RequestMapping("/chapter/{id}")
-    public ModelAndView showChapter(@PathVariable("id") Long id, ModelAndView mav) {
-        NewContents content = newContentsService.getContentById(id); // サービスメソッドを呼び出す
-        mav.setViewName("newContentTemplate");
-        mav.addObject("content", content);
-        return mav;
-    }
-    @GetMapping("/defaultPage")
-    public String defaultPage() {
-        return "defaultPage";  // 空のテンプレートを返す
-    }
+	@RequestMapping("/question")
+	private ModelAndView question(ModelAndView mav) {
+		mav.setViewName("question");
+		return mav;
+	}
 
-    
-    
+	@RequestMapping("/chapter/{id}")
+	public ModelAndView showChapter(@PathVariable("id") Long id, ModelAndView mav) {
+		NewContents content = newContentsService.getContentById(id); // サービスメソッドを呼び出す
+		mav.setViewName("newContentTemplate");
+		mav.addObject("content", content);
+		return mav;
+	}
+
+	@GetMapping("/defaultPage")
+	public String defaultPage() {
+		return "defaultPage"; // 空のテンプレートを返す
+	}
+
 }

@@ -10,16 +10,46 @@ charset="UTF‐8" />
 	<div th:if="${content}">
 	    <h1 th:text="${content.title}">Title</h1>
 	    <p th:text="${content.body}">Content body goes here...</p>
+	    <p th:text="${content.body2}">Content body goes here...</p>
+	    <p>【サンプルコード】</p>
+	    <p th:if="${content.sampleCode != null}" 
+   th:text="${content.sampleCode}" 
+   style="white-space: pre-line;">sample code</p>
+<p th:if="${content.sampleCode == null}">No sample code available</p>
+
+
+<!--画像挿入-->
+<p>
+    <!-- content.id が 6 の場合のみ表示 -->
+    <img th:if="${content.id == 6}" th:src="@{'/images/img' + ${content.id} + '_1.png'}" alt="画像が見つかりません">
+</p>
+
+<p>
+<img th:src="@{'/images/img' + ${content.id} + '.png'}" alt="画像が見つかりません">
+</p>
+
+
 	    <a th:href="${content.contentAddress}" target="_blank">Read More</a>
 	    
 	    <!-- 完了ボタンを追加 -->
-        <form th:action="@{/completeLesson/{id}(id=${content.id})}" method="post">
+        <!--<form th:action="@{/completeLesson/{id}(id=${content.id})}" method="post">
             <button type="submit">完了</button>
-        </form>
+        </form>-->
+<!--<button th:onclick="'completeLesson(' + ${content.id} + ')'">完了</button>
+-->
+<!-- 完了ボタン -->
+        <button th:onclick="'console.log(\'ボタンがクリックされました\'); completeLesson(' + ${content.id} + ');'">完了</button>
+
+
+        
+        <p th:text="${content.id}"></p>
+
 	</div>
     <div th:if="${content == null}">
         <!-- 何も表示しない -->
     </div>
+    
+    <script src="/js/lesson.js"></script>
 
 </body>
 </html>

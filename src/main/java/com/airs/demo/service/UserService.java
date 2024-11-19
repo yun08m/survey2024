@@ -2,6 +2,9 @@ package com.airs.demo.service;
 
 import com.airs.demo.entity.User;        // Userエンティティをインポート
 import com.airs.demo.repository.userdata.UserRepository;
+
+import jakarta.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,10 +31,13 @@ public class UserService {
     
     
 	/* 特定のコンテンツや課題を完了したら、experience_pointsを加算 */
+    @Transactional
     public void addExperiencePoints(Long userId, int points) {
         User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("ユーザーが見つかりません"));
         user.setExperiencePoints(user.getExperiencePoints() + points);
         userRepository.save(user);
+        System.out.println("Updated Experience Points: " + user.getExperiencePoints());
+
     }
 
 }

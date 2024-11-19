@@ -31,9 +31,11 @@ public class LoginController {
         System.out.println("ログインを試みています: " + user.getName());
         // ユーザーが正しいかどうかチェック
         User loggedInUser = userService.validateUser(user.getName(), user.getPassword());
+
         if (loggedInUser != null) {
-            // ログイン成功の場合、ユーザー名をセッションに保存
-            session.setAttribute("loggedInUser", loggedInUser.getName());
+            // ログイン成功の場合、ユーザーオブジェクト全体をセッションに保存
+            session.setAttribute("loggedInUser", loggedInUser);
+            System.out.println("User Experience Points: " + loggedInUser.getExperiencePoints());
             return "redirect:/";  // ログイン成功後、トップページにリダイレクト
         } else {
             System.out.println("ログイン失敗: " + user.getName());
@@ -41,5 +43,6 @@ public class LoginController {
             model.addAttribute("error", "ユーザー名またはパスワードが正しくありません");
             return "login";  // ログインページを再表示
         }
+
     }
 }

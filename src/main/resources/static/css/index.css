@@ -221,7 +221,7 @@ div.user_info{
 .wrapper {
     display: flex;
     justify-content: space-between; /* contentsとexperience部分の間にスペースを作る */
-    
+    align-items: center;
 }
 
 h1.contents_title{
@@ -450,25 +450,51 @@ img.contents_img{
 iframe {
     border: none; /* iframeのボーダーを消す */
     width: 100%; /* 幅を100%に */
-    height: 600px; /* 高さを設定 */
+    height: 3000px; /* 高さを設定 */
     max-width: 800px; /* 必要に応じて最大幅を設定 */
 }
 
 iframe.contents_main{
 	width: 64.99%;
-	height: 1000px;
+	height: 3000px;
 	margin-left: 315.58px;
 }
 
 .content-frame {
     margin-top: 20px; /* 上部との間にマージンを追加 */
+    height: 1500px;
     display: flex; /* フレックスボックスを使用 */
     justify-content: flex-end; /* 右寄せにする */
 }
 
-.experience {
-    width: 25%; /* 使用できる幅の25%を占める */
-    background-color: #f0f0f0; /* オプション: 背景色を設定 */
-    padding: 15px; /* オプション: 余白を設定 */
-    text-align: center; /* 経験値のテキストを中央揃え */
+/*.experience {
+    width: 25%;  使用できる幅の25%を占める 
+    background-color: #f0f0f0;  オプション: 背景色を設定 
+    padding: 15px;  オプション: 余白を設定 
+    text-align: center;  経験値のテキストを中央揃え 
+}*/
+
+
+
+
+/*経験値バー*/
+/* プログレスバーのコンテナ */
+.progress-bar-container {
+    width: 62%;
+    background-color: #e0e0e0;
+    border-radius: 8px;
+    margin: 20px 0;
+    overflow: hidden;
+    margin-left: 300px;
 }
+
+.progress-bar {
+    height: 20px;
+    background-color: #4caf50;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    transition: width 0.4s ease;
+   
+}
+
