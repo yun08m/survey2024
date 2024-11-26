@@ -1,18 +1,23 @@
 /* 全体設定 */
 body {
-    margin-left: 360px;
     font-family: Arial, sans-serif;
     background-color: #f0f0f0; /* 背景色 */
+ 
 }
 
 /* コンテンツの設定 */
 .content {
-    max-width: 800px; /* 最大幅の設定 */
+    max-width: 95%; /* 最大幅の設定 */
     margin: 20px auto; /* 上下に余白を設定し、中央揃え */
     padding: 20px; /* 内側の余白 */
     background-color: #ffffff; /* 背景色 */
     border-radius: 8px; /* 角の丸み */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* シャドウ効果 */
+}
+
+.sample-code{
+	max-width:500px;
+	margin: 0 auto;
 }
 
 /* タイトルのスタイル */
@@ -27,6 +32,15 @@ p {
     line-height: 1.6; /* 行の高さを設定 */
     margin-bottom: 20px; /* 下部余白 */
 }
+
+p img {
+    display: block;
+    margin: 0 auto;
+    max-width: none; /* 最大幅の制限を解除 */
+    width: auto; /* 画像の元の幅を維持 */
+    height: auto; /* アスペクト比を維持 */
+}
+
 
 /* リンクのスタイル */
 a {

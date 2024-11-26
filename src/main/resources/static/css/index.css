@@ -7,9 +7,8 @@ body{
 div.main{
 	color: #fefff7;
 	margin: 0;
-	width: 900px;
 	margin: 0 auto;
-	height: 1000px;
+	height: 1080px;
 }
 
 /**************/
@@ -309,7 +308,7 @@ li.contents_sub_navi_item:hover > a.contents_sub_navi_item_link{
 /**********************/
 
 div.contents_navi{
-	height: 1000px;
+	height: 1080px;
 	width: 315.58px;
 	float: left;
 }
@@ -355,7 +354,6 @@ div.contents_navi{
 	overflow: hidden;
 	/* overflow: auto; メニューをスクロールさせる場合*/
 	height: 100%;
-	padding-bottom: 6em;
 	background-color: #49d7ff;
 	-webkit-overflow-scrolling: touch;
 	
@@ -436,7 +434,6 @@ div.contents_main{
 	background-color: #fefff7;
 	height: 1000px;
 	float: right;
-	/*width: 584.42‬px;*/
 	margin-left: 315.58px;
 	color: #999999;
 	padding: 0 30px 0;
@@ -449,52 +446,57 @@ img.contents_img{
 
 iframe {
     border: none; /* iframeのボーダーを消す */
-    width: 100%; /* 幅を100%に */
-    height: 3000px; /* 高さを設定 */
-    max-width: 800px; /* 必要に応じて最大幅を設定 */
+    max-width: 100%; /* 必要に応じて最大幅を設定 */
+    margin-left: 320px;
 }
 
 iframe.contents_main{
 	width: 64.99%;
-	height: 3000px;
-	margin-left: 315.58px;
+	height:100% ;
 }
 
 .content-frame {
-    margin-top: 20px; /* 上部との間にマージンを追加 */
-    height: 1500px;
     display: flex; /* フレックスボックスを使用 */
-    justify-content: flex-end; /* 右寄せにする */
+    height: 864px;
 }
 
-/*.experience {
-    width: 25%;  使用できる幅の25%を占める 
-    background-color: #f0f0f0;  オプション: 背景色を設定 
-    padding: 15px;  オプション: 余白を設定 
-    text-align: center;  経験値のテキストを中央揃え 
-}*/
+
 
 
 
 
 /*経験値バー*/
+/* レベル表示用スタイル */
+.experience-box{
+	width: 75%;
+	
+}
+
+.level-display {
+    text-align: center; /* テキストを中央揃え */
+    font-size: 1.2em; /* フォントサイズを調整 */
+    font-weight: bold; /* 太字にする */
+    color: #fcaa00; /* 色を指定 */
+    margin-bottom: 10px; /* 下に余白を追加 */
+}
+
 /* プログレスバーのコンテナ */
 .progress-bar-container {
     width: 62%;
     background-color: #e0e0e0;
     border-radius: 8px;
-    margin: 20px 0;
+    margin: 20px auto; /* 上下中央揃え、左右中央揃え */
     overflow: hidden;
-    margin-left: 300px;
+    font-weight: bold;
+    color: #fcaa00;
 }
 
+/* プログレスバー */
 .progress-bar {
     height: 20px;
-    background-color: #4caf50;
+    background-color: #67C7D4;
     text-align: center;
     color: white;
     font-weight: bold;
     transition: width 0.4s ease;
-   
 }
-

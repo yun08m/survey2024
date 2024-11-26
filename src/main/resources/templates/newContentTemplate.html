@@ -7,15 +7,17 @@ charset="UTF‐8" />
     <title>content page</title>
 </head>
 <body>
-	<div th:if="${content}">
+	<div class="content" th:if="${content}">
 	    <h1 th:text="${content.title}">Title</h1>
 	    <p th:text="${content.body}">Content body goes here...</p>
 	    <p th:text="${content.body2}">Content body goes here...</p>
-	    <p>【サンプルコード】</p>
-	    <p th:if="${content.sampleCode != null}" 
-   th:text="${content.sampleCode}" 
-   style="white-space: pre-line;">sample code</p>
-<p th:if="${content.sampleCode == null}">No sample code available</p>
+		<div class="sample-code">
+		    <p>【サンプルコード】</p>
+		    <p th:if="${content.sampleCode != null}" 
+			   th:text="${content.sampleCode}" 
+			   style="white-space: pre-line;">sample code</p>
+			<p th:if="${content.sampleCode == null}">No sample code available</p>
+		</div>
 
 
 <!--画像挿入-->
@@ -25,7 +27,7 @@ charset="UTF‐8" />
 </p>
 
 <p>
-<img th:src="@{'/images/img' + ${content.id} + '.png'}" alt="画像が見つかりません">
+<img th:src="@{'/images/img' + ${content.id} + '.png'}" alt="">
 </p>
 
 
@@ -42,7 +44,7 @@ charset="UTF‐8" />
 
 
         
-        <p th:text="${content.id}"></p>
+       <!-- <p th:text="${content.id}"></p>-->
 
 	</div>
     <div th:if="${content == null}">
