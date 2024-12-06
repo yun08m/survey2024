@@ -8,26 +8,13 @@ rel="stylesheet"></link>
     <title>contents page</title>
 </head>
 <body>
-    <h1>コンテンツ⼀覧</h1>
-    <div class="contents_main">   
-    <img class="contents_img"
-src="../images/image.png"></a>
-    <img class="contents_img"
-src="../images/image.png"></a>
-    <img class="contents_img"
-src="../images/image.png"></a>
-    <img class="contents_img"
-src="../images/image.png"></a>
-    <img class="contents_img"
-src="../images/image.png"></a>
-    <img class="contents_img"
-src="../images/image.png"></a>
-    <img class="contents_img"
-src="../images/image.png"></a>
-    <img class="contents_img"
-src="../images/image.png"></a>
-    <img class="contents_img"
-src="../images/image.png"></a>
-    </div>
+    <h1>完了コンテンツ⼀覧</h1>
+    <ul class="number">
+    <!-- 完了したコンテンツIDのみを表示 -->
+    <li class="number"
+    	th:each="contentId : ${completedContentIds}">
+   <!-- 完了したコンテンツのIDを表示 -->
+    </li>
+</ul>
 </body>
 </html>

@@ -1,8 +1,11 @@
 package com.airs.demo.controller;
 
+import java.util.List;
 import com.airs.demo.entity.User;
+import com.airs.demo.entity.Content;
 import com.airs.demo.service.LessonService;
 import com.airs.demo.service.UserService;
+import com.airs.demo.service.ContentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,11 +18,15 @@ public class LearningController {
 
     private final LessonService lessonService;
     private final UserService userService;
+    private final ContentService contentService;
+    
+    
 
     @Autowired
-    public LearningController(LessonService lessonService, UserService userService) {
+    public LearningController(LessonService lessonService, UserService userService,ContentService contentService) {
         this.lessonService = lessonService;
         this.userService = userService;
+        this.contentService = contentService;
     }
 
     @GetMapping("/completeLesson/{lessonId}")
@@ -51,6 +58,30 @@ public class LearningController {
         model.addAttribute("user", user);
         return "userProfile"; // ビュー名を指定
     }
+    @GetMapping("/user-contents") 
+    public String getUserContents(@SessionAttribute("loggedInUser") User user, Model model) {
+        // すべてのコンテンツを取得
+    	 List<Content> allContents = contentService.getAllContents();
+    	List<Long> completedContentIds = lessonService.getCompletedContentIds(user.getId());
+    	List<String> completedContentIdsAsString = completedContentIds.stream()
+    	                                                              .map(String::valueOf)
+    	                                                              .toList();
+    	model.addAttribute("completedContentIds", completedContentIdsAsString);
+
+        if (completedContentIds == null) {
+            completedContentIds = List.of();
+        }
+        
+
+        // モデルにデータを追加
+        model.addAttribute("contents", allContents);
+        model.addAttribute("completedContentIds", completedContentIds);
+
+        return "contents"; // 完了状況を表示するテンプレート
+    }
+    
+    
+
 
     
 }

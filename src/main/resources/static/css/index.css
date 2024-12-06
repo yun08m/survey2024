@@ -500,3 +500,20 @@ iframe.contents_main{
     font-weight: bold;
     transition: width 0.4s ease;
 }
+
+
+/*サイドバーチェックマーク*/
+/* チェックマークのスタイル */
+/* 完了時のチェックマークのデザイン */
+.completed {
+    color: green; /* チェックマークを緑色に */
+    font-size: 1.5em; /* チェックマークの大きさ */
+    margin-right: 5px; /* チェックマークとテキストの間にスペース */
+}
+
+/* 未完了時のスタイル */
+.not-completed {
+    display: none; /* 未完了のときは何も表示しない */
+}
+
+

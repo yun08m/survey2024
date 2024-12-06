@@ -24,3 +24,48 @@ iframe.contents_main{
 	height: 500px;
 	margin-left: 315.58px;
 }
+
+ul {
+    list-style-type: none;  /* デフォルトのリストスタイルを削除 */
+    padding: 0;  /* インデントを削除 */
+}
+
+li {
+    display: inline-block;  /* 横並びにする */
+    margin-right: 10px;  /* 各項目の間隔を調整 */
+}
+
+
+ul.number{
+  counter-reset:list;
+  list-style-type:none;
+  font: 14px/1.6 'arial narrow', sans-serif;
+  padding: 0px;
+}
+  
+ul.number li{
+  position:relative;
+  line-height: 30px;
+  margin: 7px 0 7px 40px;
+  padding-left: 10px;
+  font-weight: bold;
+  font-size:30px;
+}
+  
+ul.number li:before{
+  counter-increment: list;
+  content: counter(list);
+  position: absolute;
+  left: -35px;
+  width: 30px;
+  height: 30px;
+  background: #F6A38B;
+  text-align: center;
+  color: #fff;
+  top: 50%;
+  -moz-transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}

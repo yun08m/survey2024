@@ -3,6 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" />
     <link href="/css/index.css" th:href="@{/css/index.css}" rel="stylesheet">
+
     <title>AIRS index demo</title>
     <script src="/js/lesson.js"></script>
 </head>
@@ -17,7 +18,7 @@
             <li class="navi_item"><a class="navi_item_link" href="#"><img src="../images/menu.png"> <span class="caret"></span></a>
                 <ul class="sub_navi">
                     <li class="sub_navi_item_freeze"><a class="sub_navi_item_link_freeze" href="#">登録情報変更</a></li>
-                    <li class="sub_navi_item"><a target="mainPage" class="sub_navi_item_link" href="/question">よくある質問</a></li>
+                    <li class="sub_navi_item"><a target="mainPage" class="sub_navi_item_link" href="/question">サイトの使い方</a></li>
                     <li class="sub_navi_item"><a target="mainPage" class="sub_navi_item_link" href="/contact">問い合わせ</a></li>
                     <li class="sub_navi_item_freeze"><a class="sub_navi_item_link_freeze" href="login">ログイン</a></li>
                 </ul>
@@ -44,7 +45,10 @@
                                 <i class="fa fa-calendar fa-fw"></i>
                                 <span th:text="${data.id}">Content ID</span>
                                 <span th:text="${data.title}">Content Title</span>
-                            </a>
+									<span th:if="${completedContentIds != null and #lists.contains(completedContentIds, data.id)}" class="completed"> ✔ </span>
+									<span th:if="${completedContentIds == null or !#lists.contains(completedContentIds, data.id)}" class="not-completed"><!-- 未完了のときは何も表示しない -->
+									</span>
+							</a>
                         </li>
                     </ul>
                 </nav>

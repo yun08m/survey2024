@@ -34,9 +34,10 @@ public class NewContentsController {
 
 
     // すべてのコンテンツをリスト表示
-    @GetMapping("/contents")
+    @GetMapping("/new-contents") // 新しいパスに変更
     public String listContents(Model model) {
         model.addAttribute("contents", newContentsService.getAllContents());
         return "contentList";
     }
+
 }

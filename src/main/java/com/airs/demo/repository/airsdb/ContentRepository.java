@@ -6,6 +6,5 @@ import org.springframework.stereotype.Repository;
 import com.airs.demo.entity.Content;
 
 @Repository
-public interface ContentRepository extends JpaRepository<Content, Integer>{
-
+public interface ContentRepository extends JpaRepository<Content, Long> { // 修正: Integer -> Long
 }

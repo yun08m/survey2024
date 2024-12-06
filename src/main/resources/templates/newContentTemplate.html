@@ -3,7 +3,7 @@
 <head>
     <meta http‐equiv="Content‐Type" content="text/html"
 charset="UTF‐8" />
-    <link href="/css/template.css" th:href="@{/css/template.css}" rel="stylesheet" />
+	<link th:href="@{/css/template.css}" rel="stylesheet" />
     <title>content page</title>
 </head>
 <body>
@@ -31,17 +31,11 @@ charset="UTF‐8" />
 </p>
 
 
-	    <a th:href="${content.contentAddress}" target="_blank">Read More</a>
-	    
-	    <!-- 完了ボタンを追加 -->
-        <!--<form th:action="@{/completeLesson/{id}(id=${content.id})}" method="post">
-            <button type="submit">完了</button>
-        </form>-->
-<!--<button th:onclick="'completeLesson(' + ${content.id} + ')'">完了</button>
--->
-<!-- 完了ボタン -->
-        <button th:onclick="'console.log(\'ボタンがクリックされました\'); completeLesson(' + ${content.id} + ');'">完了</button>
 
+
+	<div class="container">
+        <button class="btn-hover" th:onclick="'console.log(\'ボタンがクリックされました\'); completeLesson(' + ${content.id} + ');'">完了</button>
+	</div>
 
         
        <!-- <p th:text="${content.id}"></p>-->

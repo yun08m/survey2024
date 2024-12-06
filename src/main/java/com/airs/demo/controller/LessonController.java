@@ -2,16 +2,26 @@ package com.airs.demo.controller;
 
 import jakarta.servlet.http.HttpSession;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+
+import com.airs.demo.entity.CompletedLesson;
+import com.airs.demo.entity.Content;
 import com.airs.demo.entity.User;
+import com.airs.demo.repository.userdata.UserRepository;
+import com.airs.demo.repository.userdata.CompletedLessonRepository;
+import com.airs.demo.repository.airsdb.ContentRepository;
 import com.airs.demo.service.LessonService;
 import com.airs.demo.service.UserService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -19,36 +29,46 @@ public class LessonController {
 
     private final LessonService lessonService;
     private final UserService userService;
+    private final UserRepository userRepository;
+    private final CompletedLessonRepository completedLessonRepository;
+    private final ContentRepository contentRepository;
 
     @Autowired
-    public LessonController(LessonService lessonService, UserService userService) {
+    public LessonController(LessonService lessonService, UserService userService,
+                            UserRepository userRepository, CompletedLessonRepository completedLessonRepository,
+                            ContentRepository contentRepository) {
         this.lessonService = lessonService;
         this.userService = userService;
+        this.userRepository = userRepository;
+        this.completedLessonRepository = completedLessonRepository;
+        this.contentRepository = contentRepository;
     }
 
-    // レッスン完了時に呼び出されるメソッド
     @PostMapping("/completeLesson/{lessonId}")
-    @ResponseBody  // JSON形式で返すために追加
+    @ResponseBody
     public Map<String, Object> completeLesson(@PathVariable Long lessonId, HttpSession session) {
-    	System.out.println("Received lessonId: " + lessonId); 
-    	Map<String, Object> response = new HashMap<>();
+        Map<String, Object> response = new HashMap<>();
         User user = (User) session.getAttribute("loggedInUser");
 
         if (user != null) {
+            // レッスンを完了
             lessonService.completeLesson(lessonId, user.getId());
-            System.out.println("Lesson completed for user ID: " + user.getId());
 
-            
+            // 経験値を追加
             userService.addExperiencePoints(user.getId(), 10);
-            System.out.println("Experience points added for user ID: " + user.getId());
 
-            
-            // 更新されたユーザー情報を取得してセッションを更新
+            // 更新されたユーザー情報をセッションに設定
             User updatedUser = userService.findByName(user.getName());
             session.setAttribute("loggedInUser", updatedUser);
-            
+
+            // 完了したレッスンIDリストを作成
+            List<Long> completedContentIds = completedLessonRepository.findByUserId(user.getId())
+                    .stream().map(CompletedLesson::getLessonId).collect(Collectors.toList());
+
+            // レスポンスに必要な情報を追加
             response.put("success", true);
             response.put("updatedExperiencePoints", updatedUser.getExperiencePoints());
+            response.put("completedContentIds", completedContentIds);
         } else {
             response.put("success", false);
             response.put("error", "ログインが必要です。");
@@ -57,25 +77,23 @@ public class LessonController {
         return response;
     }
 
-
-       
     @GetMapping("/lessonContent/{lessonId}")
     public String showContent(@PathVariable Long lessonId, HttpSession session, Model model) {
-        // セッションから最新のUserオブジェクトを取得
         User user = (User) session.getAttribute("loggedInUser");
         if (user != null) {
             // ユーザー情報をモデルに追加
-            model.addAttribute("user", user);  // 最新のユーザー情報をモデルに追加
+            model.addAttribute("user", user);
+
+            // 完了したレッスンIDリストを追加
+            List<Long> completedContentIds = completedLessonRepository.findByUserId(user.getId())
+                    .stream().map(CompletedLesson::getLessonId).collect(Collectors.toList());
+            model.addAttribute("completedContentIds", completedContentIds);
         } else {
             model.addAttribute("error", "ログインが必要です。");
-            return "redirect:/login";  // ログイン画面にリダイレクト
+            return "redirect:/login";
         }
+
         model.addAttribute("lessonId", lessonId);
-
-        // lessonIdに対応するレッスンの情報をモデルに追加する場合など
-        // model.addAttribute("lesson", lessonService.getLessonById(lessonId));
-
-        // 完了後にリダイレクトする
-        return "newContentsTemplate";  
-        }
+        return "newContentsTemplate";
+    }
 }
