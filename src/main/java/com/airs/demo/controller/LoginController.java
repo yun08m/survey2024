@@ -34,7 +34,26 @@ public class LoginController {
 
         if (loggedInUser != null) {
             // ログイン成功の場合、ユーザーオブジェクト全体をセッションに保存
+        	// ユーザーのレベルを計算
+
+        	
             session.setAttribute("loggedInUser", loggedInUser);
+            
+         // ユーザーのレベルを計算
+            int level = loggedInUser.getExperiencePoints() / 100;
+            
+
+            // レベルごとの画像パスを決定
+            String levelImagePath = "images/level" + (level + 1) +".jpg";
+         // レベルごとの画像パスをセッションに保存
+            session.setAttribute("levelImagePath", levelImagePath);
+            System.out.println("Calculated levelImagePath: " + levelImagePath);
+
+
+            
+            
+            
+            
             System.out.println("User Experience Points: " + loggedInUser.getExperiencePoints());
             return "redirect:/";  // ログイン成功後、トップページにリダイレクト
         } else {

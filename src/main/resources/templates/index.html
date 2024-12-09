@@ -11,7 +11,7 @@
 <body>
 <div class="main">
     <header class="menu">
-        <h1 class="title"><img src="../images/AIRS.png" height="45"></h1>
+        <h1 class="title"><img  src="../images/AIRS.png" height="45"></h1>
         <ul class="navi">
             <li class="navi_item"><a target="mainPage" class="navi_item_link" href="/contents"><img src="../images/home.png"></a></li>
             <li class="navi_item"><a class="navi_item_link" href="https://twitter.com/share?url=http://airs.sie.dendai.ac.jp/AIRS/top/&via=AIRS_Authoring&related=AIRS_Authoring&text=AIRS公式サイト　TOP PAGE" rel="nofollow" target="_blank"><img src="../images/twitter.png"></a></li>
@@ -57,7 +57,13 @@
 
         <!-- 経験値バー -->
         <div class="experience-box" th:if="${user != null}">
-    		<p class="level-display">レベル: <span th:text="${level}"></span></p>
+    		<p class="level-display">レベル: <span th:text="${level+1}"></span></p>
+    		<!-- レベル画像の表示 -->
+			<div class="level-image" th:if="${session.loggedInUser != null}">
+    			<img th:src="${session.levelImagePath != null ? session.levelImagePath : '/images/level1.jpg'}" alt="Level Image">
+			</div>
+
+
 	    	<div class="progress-bar-container">
 	        	<p class="experience-display">Experience: <span th:text="${remainingExperience}"></span> / 100</p>
 	        	<div class="progress-bar" role="progressbar"
@@ -75,8 +81,11 @@
 
 <!-- スクリプト -->
 <script>
+	
+	let currentExperiencePoints = 0; // 現在の経験値（初期値）
+	
     function updateExperiencePoints(totalExperiencePoints) {
-        const level = Math.floor(totalExperiencePoints / 100);
+        const level = Math.floor(totalExperiencePoints / 100) + 1;
         const remainingExperience = totalExperiencePoints % 100;
         
         // レベルと経験値表示を更新

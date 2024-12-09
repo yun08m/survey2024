@@ -64,6 +64,10 @@ public class LessonController {
             // 完了したレッスンIDリストを作成
             List<Long> completedContentIds = completedLessonRepository.findByUserId(user.getId())
                     .stream().map(CompletedLesson::getLessonId).collect(Collectors.toList());
+            
+            
+            
+            
 
             // レスポンスに必要な情報を追加
             response.put("success", true);
@@ -76,24 +80,28 @@ public class LessonController {
 
         return response;
     }
-
-    @GetMapping("/lessonContent/{lessonId}")
-    public String showContent(@PathVariable Long lessonId, HttpSession session, Model model) {
-        User user = (User) session.getAttribute("loggedInUser");
-        if (user != null) {
-            // ユーザー情報をモデルに追加
-            model.addAttribute("user", user);
-
-            // 完了したレッスンIDリストを追加
-            List<Long> completedContentIds = completedLessonRepository.findByUserId(user.getId())
-                    .stream().map(CompletedLesson::getLessonId).collect(Collectors.toList());
-            model.addAttribute("completedContentIds", completedContentIds);
-        } else {
-            model.addAttribute("error", "ログインが必要です。");
-            return "redirect:/login";
-        }
-
-        model.addAttribute("lessonId", lessonId);
-        return "newContentsTemplate";
-    }
+	/*
+	 * @GetMapping("/lessonContent/{lessonId}") public String
+	 * showContent(@PathVariable Long lessonId, HttpSession session, Model model) {
+	 * User user = (User) session.getAttribute("loggedInUser"); if (user != null) {
+	 * // ユーザー情報をモデルに追加 model.addAttribute("user", user);
+	 * 
+	 * // 完了したレッスンIDリストを追加 List<Long> completedContentIds =
+	 * completedLessonRepository.findByUserId(user.getId())
+	 * .stream().map(CompletedLesson::getLessonId).collect(Collectors.toList());
+	 * model.addAttribute("completedContentIds", completedContentIds);
+	 * 
+	 * // ユーザーのレベルを計算 int level = user.getExperiencePoints() / 100;
+	 * 
+	 * // レベルごとの画像パスを決定 String levelImagePath = "images/level" + (level + 1)
+	 * +".jpg"; System.out.println("Calculated levelImagePath: " + levelImagePath);
+	 * 
+	 * model.addAttribute("levelImagePath", levelImagePath);
+	 * 
+	 * 
+	 * } else { model.addAttribute("error", "ログインが必要です。"); return "redirect:/login";
+	 * }
+	 * 
+	 * model.addAttribute("lessonId", lessonId); return "newContentsTemplate"; }
+	 */
 }

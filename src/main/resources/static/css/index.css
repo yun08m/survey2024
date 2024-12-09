@@ -517,3 +517,8 @@ iframe.contents_main{
 }
 
 
+.level-image img{
+	width: 120px;
+    height: auto; 
+}
+
