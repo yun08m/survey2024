@@ -61,6 +61,8 @@ public class LessonService {
         CompletedLesson completedLesson = new CompletedLesson();
         completedLesson.setLessonId(lessonId);
         completedLesson.setUserId(userId);
+        
+        
 
         completedLessonRepository.save(completedLesson);
 }

@@ -1,5 +1,7 @@
 package com.airs.demo.controller;
 
+import jakarta.servlet.http.HttpSession;
+
 import java.util.List;
 import com.airs.demo.entity.User;
 import com.airs.demo.entity.Content;
@@ -32,6 +34,7 @@ public class LearningController {
     @GetMapping("/completeLesson/{lessonId}")
     public String completeLesson(@PathVariable Long lessonId, 
                                  @SessionAttribute("loggedInUser") User user, 
+                                 HttpSession session,
                                  Model model) {
     	
         // レッスンを完了とマーク
@@ -40,8 +43,22 @@ public class LearningController {
         // 経験値を加算（ここでは10ポイント）
         userService.addExperiencePoints(user.getId(), 10);
         
+        // 最新のユーザー情報を取得
+        User updatedUser = userService.findById(user.getId());
+        user.setExperiencePoints(updatedUser.getExperiencePoints());
+        
+     // レベルを計算
+        int level = updatedUser.getExperiencePoints() / 100;        
+        // レベルごとの画像パスを計算
+        String levelImagePath = "images/level" + (level + 1) + ".jpg";
+        
+        // セッションに新しい画像パスを保存
+        session.setAttribute("levelImagePath", levelImagePath);
+        
         // 完了メッセージを設定
         model.addAttribute("message", "レッスンを完了しました。経験値10ポイント獲得！");
+        model.addAttribute("levelImagePath", levelImagePath);
+
         
         return "lessonComplete"; // レッスン完了ページを表示
     }

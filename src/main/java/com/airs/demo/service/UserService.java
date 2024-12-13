@@ -29,6 +29,28 @@ public class UserService {
         return userRepository.findByName(name);
     }
     
+    public User findById(Long id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("ユーザーが見つかりません: ID=" + id));
+    }
+        
+        public String getLevelImagePath(User user) {
+            int level = calculateLevel(user.getExperiencePoints());
+            // レベルに応じた画像パスを返す
+            switch (level) {
+                case 1: return "/images/level1.jpg";
+                case 2: return "/images/level2.jpg";
+                case 3: return "/images/level3.jpg";
+                case 4: return "/images/level4.jpg";
+                default: return "/images/default.jpg";
+            }
+    }
+
+        
+        private int calculateLevel(int experiencePoints) {
+            return (experiencePoints / 100) + 1; // 100ポイントごとにレベルが上がる
+        }
+    
     
 	/* 特定のコンテンツや課題を完了したら、experience_pointsを加算 */
     @Transactional

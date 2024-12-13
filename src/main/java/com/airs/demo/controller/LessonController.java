@@ -16,6 +16,8 @@ import com.airs.demo.service.LessonService;
 import com.airs.demo.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,42 +46,108 @@ public class LessonController {
         this.contentRepository = contentRepository;
     }
 
+    
     @PostMapping("/completeLesson/{lessonId}")
+    public ResponseEntity<Map<String, Object>> completeLesson(@PathVariable Long lessonId, HttpSession session) {
+        Map<String, Object> response = new HashMap<>();
+
+        try {
+            // セッションからログイン中のユーザーを取得
+            User user = (User) session.getAttribute("loggedInUser");
+
+            if (user != null) {
+                // レッスンを完了
+                lessonService.completeLesson(lessonId, user.getId());
+
+                // 経験値を追加
+                userService.addExperiencePoints(user.getId(), 10);
+
+                // 更新されたユーザー情報を取得し、セッションを更新
+                User updatedUser = userService.findByName(user.getName());
+                session.setAttribute("loggedInUser", updatedUser);
+
+                // 完了したレッスンIDリストを作成
+                List<Long> completedContentIds = completedLessonRepository.findByUserId(user.getId())
+                        .stream().map(CompletedLesson::getLessonId).collect(Collectors.toList());
+
+                // レスポンスに必要な情報を追加
+                response.put("success", true);
+                response.put("updatedExperiencePoints", updatedUser.getExperiencePoints());
+                response.put("completedContentIds", completedContentIds);
+                response.put("levelImagePath", userService.getLevelImagePath(updatedUser)); // レベル画像パス
+
+                return ResponseEntity.ok(response);
+            } else {
+                // ユーザーがログインしていない場合のエラー
+                response.put("success", false);
+                response.put("error", "ログインが必要です。");
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
+            }
+        } catch (Exception e) {
+            // 例外発生時のエラーハンドリング
+            response.put("success", false);
+            response.put("message", "処理中にエラーが発生しました: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+    }
+
+    
+	/*
+	 * @PostMapping("/completeLesson/{lessonId}")
+	 * 
+	 * @ResponseBody public Map<String, Object> completeLesson(@PathVariable Long
+	 * lessonId, HttpSession session) { Map<String, Object> response = new
+	 * HashMap<>(); User user = (User) session.getAttribute("loggedInUser");
+	 * 
+	 * if (user != null) { // レッスンを完了 lessonService.completeLesson(lessonId,
+	 * user.getId());
+	 * 
+	 * // 経験値を追加 userService.addExperiencePoints(user.getId(), 10);
+	 * 
+	 * // 更新されたユーザー情報をセッションに設定 User updatedUser =
+	 * userService.findByName(user.getName()); session.setAttribute("loggedInUser",
+	 * updatedUser);
+	 * 
+	 * // 完了したレッスンIDリストを作成 List<Long> completedContentIds =
+	 * completedLessonRepository.findByUserId(user.getId())
+	 * .stream().map(CompletedLesson::getLessonId).collect(Collectors.toList());
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * // レスポンスに必要な情報を追加 response.put("success", true);
+	 * response.put("updatedExperiencePoints", updatedUser.getExperiencePoints());
+	 * response.put("completedContentIds", completedContentIds);
+	 * response.put("levelImagePath", userService.getLevelImagePath(user)); //
+	 * レベル画像パス } else { response.put("success", false); response.put("error",
+	 * "ログインが必要です。"); }
+	 * 
+	 * return response; }
+	 */
+    
+    @GetMapping("/getUserData")
     @ResponseBody
-    public Map<String, Object> completeLesson(@PathVariable Long lessonId, HttpSession session) {
+    public Map<String, Object> getUserData(HttpSession session) {
         Map<String, Object> response = new HashMap<>();
         User user = (User) session.getAttribute("loggedInUser");
 
         if (user != null) {
-            // レッスンを完了
-            lessonService.completeLesson(lessonId, user.getId());
+            // ユーザーの経験値やレベル画像パスを取得
+            int experiencePoints = user.getExperiencePoints();
+            int level = experiencePoints / 100;
+            String levelImagePath = "images/level" + (level + 1) + ".jpg";  // レベルごとの画像パス
 
-            // 経験値を追加
-            userService.addExperiencePoints(user.getId(), 10);
-
-            // 更新されたユーザー情報をセッションに設定
-            User updatedUser = userService.findByName(user.getName());
-            session.setAttribute("loggedInUser", updatedUser);
-
-            // 完了したレッスンIDリストを作成
-            List<Long> completedContentIds = completedLessonRepository.findByUserId(user.getId())
-                    .stream().map(CompletedLesson::getLessonId).collect(Collectors.toList());
-            
-            
-            
-            
-
-            // レスポンスに必要な情報を追加
-            response.put("success", true);
-            response.put("updatedExperiencePoints", updatedUser.getExperiencePoints());
-            response.put("completedContentIds", completedContentIds);
+            // レスポンスにデータを追加
+            response.put("experiencePoints", experiencePoints);
+            response.put("levelImagePath", levelImagePath);
         } else {
-            response.put("success", false);
-            response.put("error", "ログインが必要です。");
+            response.put("error", "ユーザーがログインしていません");
         }
 
         return response;
     }
+
 	/*
 	 * @GetMapping("/lessonContent/{lessonId}") public String
 	 * showContent(@PathVariable Long lessonId, HttpSession session, Model model) {

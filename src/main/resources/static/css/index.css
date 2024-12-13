@@ -467,9 +467,20 @@ iframe.contents_main{
 
 /*経験値バー*/
 /* レベル表示用スタイル */
+
+
+
 .experience-box{
-	width: 75%;
-	
+	 width: 75%;
+	 max-width: 950px;
+	margin-right: 50px;
+}
+
+.level-progress-container {
+    display: flex; /* Flexbox を使用 */
+    align-items: center; /* 垂直方向の中央揃え */  
+    gap: 20px;  
+    max-width: 100%;
 }
 
 .level-display {
@@ -482,13 +493,18 @@ iframe.contents_main{
 
 /* プログレスバーのコンテナ */
 .progress-bar-container {
-    width: 62%;
+	flex: 1;
     background-color: #e0e0e0;
     border-radius: 8px;
-    margin: 20px auto; /* 上下中央揃え、左右中央揃え */
     overflow: hidden;
     font-weight: bold;
     color: #fcaa00;
+}
+
+.level-image img{
+	width: 120px;
+    height: auto; 
+    border-radius: 10px;
 }
 
 /* プログレスバー */
@@ -517,8 +533,5 @@ iframe.contents_main{
 }
 
 
-.level-image img{
-	width: 120px;
-    height: auto; 
-}
+
 

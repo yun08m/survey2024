@@ -5,7 +5,7 @@
     <link href="/css/index.css" th:href="@{/css/index.css}" rel="stylesheet">
 
     <title>AIRS index demo</title>
-    <script src="/js/lesson.js"></script>
+    
 </head>
 
 <body>
@@ -55,21 +55,26 @@
             </div>   
         </div>
 
-        <!-- 経験値バー -->
-        <div class="experience-box" th:if="${user != null}">
-    		<p class="level-display">レベル: <span th:text="${level+1}"></span></p>
-    		<!-- レベル画像の表示 -->
-			<div class="level-image" th:if="${session.loggedInUser != null}">
-    			<img th:src="${session.levelImagePath != null ? session.levelImagePath : '/images/level1.jpg'}" alt="Level Image">
-			</div>
+        <!-- 経験値ボックス -->
+<div class="experience-box" th:if="${user != null}">
+    <p class="level-display">レベル: <span th:text="${level+1}"></span></p>
+    <div class="level-progress-container">
+         レベル画像の表示 
+        <div class="level-image" th:if="${session.loggedInUser != null}">
+            <img id="levelImage" th:src="${session.levelImagePath != null && session.levelImagePath.matches('/images/level[1-4]\\.jpg') ? session.levelImagePath : '/images/level1.jpg'}" alt="Level Image">
+        </div>
+
+         <!--プログレスバー -->
+        <div class="progress-bar-container">
+            <p class="experience-display">Experience: <span th:text="${remainingExperience}"></span> / 100</p>
+            <div class="progress-bar" role="progressbar"
+                 th:style="'width:' + ${remainingExperience} + '%'"></div>
+        </div>
+    </div>
+</div>
 
 
-	    	<div class="progress-bar-container">
-	        	<p class="experience-display">Experience: <span th:text="${remainingExperience}"></span> / 100</p>
-	        	<div class="progress-bar" role="progressbar"
-	             	th:style="'width:' + ${remainingExperience} + '%'"></div>
-	    	</div>
-		</div>
+
 
     </div>
 
@@ -80,35 +85,7 @@
 </div>
 
 <!-- スクリプト -->
-<script>
-	
-	let currentExperiencePoints = 0; // 現在の経験値（初期値）
-	
-    function updateExperiencePoints(totalExperiencePoints) {
-        const level = Math.floor(totalExperiencePoints / 100) + 1;
-        const remainingExperience = totalExperiencePoints % 100;
-        
-        // レベルと経験値表示を更新
-        const levelDisplay = document.querySelector(".level-display");
-        const experienceDisplay = document.querySelector(".experience-display");
+<script src="/js/updateIndex.js"></script>
 
-        if (levelDisplay && experienceDisplay) {
-            levelDisplay.textContent = `レベル: ${level}`;
-            experienceDisplay.textContent = `経験値: ${remainingExperience} / 100`;
-        }
-
-        // プログレスバーを更新
-        const progressBar = document.querySelector(".progress-bar");
-        if (progressBar) {
-            progressBar.style.width = remainingExperience + "%";
-        }
-        alert("レッスンを完了しました");
-    }
-
-    function completeLesson() {
-        const newExperiencePoints = 50;
-        updateExperiencePoints(newExperiencePoints);
-    }
-</script>
 </body>
 </html>
