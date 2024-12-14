@@ -58,6 +58,9 @@ public class LearningController {
         // 完了メッセージを設定
         model.addAttribute("message", "レッスンを完了しました。経験値10ポイント獲得！");
         model.addAttribute("levelImagePath", levelImagePath);
+        
+        System.out.println("levelImagePath: " + session.getAttribute("levelImagePath"));
+
 
         
         return "lessonComplete"; // レッスン完了ページを表示

@@ -33,8 +33,16 @@ function updateExperienceDisplay(experiencePoints) {
 }
 
 function updateLevelImage(imagePath) {
-    const levelImage = document.querySelector(".level-image");
+    const levelImage = document.querySelector("#levelImage");
     if (levelImage) {
-        levelImage.src = imagePath;
+        const defaultSrc = levelImage.dataset.defaultSrc || "/images/level1.jpg";
+
+        // 入力されたパスが正しい形式かチェック
+        if (imagePath && imagePath.match(/^\/images\/level[1-4]\.jpg$/)) {
+            levelImage.src = imagePath; // 正しい場合、画像を更新
+        } else {
+            levelImage.src = defaultSrc; // 不正な場合はデフォルト画像を表示
+        }
     }
 }
+

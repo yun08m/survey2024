@@ -60,9 +60,17 @@
     <p class="level-display">レベル: <span th:text="${level+1}"></span></p>
     <div class="level-progress-container">
          レベル画像の表示 
-        <div class="level-image" th:if="${session.loggedInUser != null}">
+        <!--<div class="level-image" th:if="${session.loggedInUser != null}">
             <img id="levelImage" th:src="${session.levelImagePath != null && session.levelImagePath.matches('/images/level[1-4]\\.jpg') ? session.levelImagePath : '/images/level1.jpg'}" alt="Level Image">
-        </div>
+        </div>-->
+        
+        <div class="level-image" th:if="${session.loggedInUser != null}">
+    <img id="levelImage" 
+         th:src="${session.levelImagePath != null && session.levelImagePath.matches('/images/level[1-4]\\.jpg') ? session.levelImagePath : '/images/level1.jpg'}" 
+         data-default-src="/images/level1.jpg" 
+         alt="Level Image">
+</div>
+
 
          <!--プログレスバー -->
         <div class="progress-bar-container">
