@@ -20,6 +20,10 @@ public class User {
     
     @Column(name = "experience_points")
     private int experiencePoints = 0;
+    
+    @Column(name = "level_image_path", nullable = false)
+    private String levelImagePath;
+
 
     // ゲッターとセッター
     public Long getId() {
@@ -53,6 +57,14 @@ public class User {
 
     public void setExperiencePoints(int experiencePoints) {
         this.experiencePoints = experiencePoints;
+    }
+    
+    public String getLevelImagePath() {
+        return levelImagePath;
+    }
+    
+    public void setLevelImagePath(String levelImagePath) {
+        this.levelImagePath = levelImagePath;
     }
 }
 

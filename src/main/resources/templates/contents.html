@@ -8,13 +8,23 @@ rel="stylesheet"></link>
     <title>contents page</title>
 </head>
 <body>
-    <h1>完了コンテンツ⼀覧</h1>
-    <ul class="number">
-    <!-- 完了したコンテンツIDのみを表示 -->
-    <li class="number"
-    	th:each="contentId : ${completedContentIds}">
-   <!-- 完了したコンテンツのIDを表示 -->
-    </li>
-</ul>
+	
+
+	
+	<div>
+    <h1>Level Images</h1>
+    <ul class="level-images">
+        <li th:each="imagePath : ${levelImagePaths}">
+            <!-- 画像パスが正しく解釈されるよう修正 -->
+            <img th:src="@{${imagePath}}" alt="Level Image">
+        </li>
+    </ul>
+    <p th:if="${#lists.isEmpty(levelImagePaths)}">表示するレベル画像はありません。</p>
+</div>
+
+
+
+
+
 </body>
 </html>

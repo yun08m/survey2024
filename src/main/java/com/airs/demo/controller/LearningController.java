@@ -2,6 +2,7 @@ package com.airs.demo.controller;
 
 import jakarta.servlet.http.HttpSession;
 
+import java.util.ArrayList;
 import java.util.List;
 import com.airs.demo.entity.User;
 import com.airs.demo.entity.Content;
@@ -30,6 +31,8 @@ public class LearningController {
         this.userService = userService;
         this.contentService = contentService;
     }
+    
+    
 
     @GetMapping("/completeLesson/{lessonId}")
     public String completeLesson(@PathVariable Long lessonId, 
@@ -65,6 +68,9 @@ public class LearningController {
         
         return "lessonComplete"; // レッスン完了ページを表示
     }
+    
+    
+    
     @GetMapping("/userProfile")
     public String getUserProfile(@SessionAttribute("loggedInUser") User user, Model model) {
     	System.out.println("User Name: " + user.getName());
@@ -72,30 +78,43 @@ public class LearningController {
         
         int level = user.getExperiencePoints() / 100; // レベルを計算
         int remainingExperience = user.getExperiencePoints() % 100; // 余りの経験値を計算
+        
+       
 
         model.addAttribute("level", level);
         model.addAttribute("remainingExperience", remainingExperience);
         model.addAttribute("user", user);
         return "userProfile"; // ビュー名を指定
     }
-    @GetMapping("/user-contents") 
-    public String getUserContents(@SessionAttribute("loggedInUser") User user, Model model) {
+    @GetMapping("/contents") 
+    public String getUserContents(@SessionAttribute("loggedInUser") User user, 
+						    		Model model) {
         // すべてのコンテンツを取得
-    	 List<Content> allContents = contentService.getAllContents();
+    	List<Content> allContents = contentService.getAllContents();
     	List<Long> completedContentIds = lessonService.getCompletedContentIds(user.getId());
+    	
+
+        if (completedContentIds == null) {
+            completedContentIds = List.of();
+        }
     	List<String> completedContentIdsAsString = completedContentIds.stream()
     	                                                              .map(String::valueOf)
     	                                                              .toList();
     	model.addAttribute("completedContentIds", completedContentIdsAsString);
 
-        if (completedContentIds == null) {
-            completedContentIds = List.of();
+        int level = user.getExperiencePoints() / 100; // レベルを計算
+        int newLevel = level +1;
+        List<String> levelImagePaths = new ArrayList<>();
+        for (int i = 1; i <=  newLevel && i <= 4; i++) {
+            levelImagePaths.add("images/level" + i + ".jpg");
         }
         
+        System.out.println("Level Image Paths: " + levelImagePaths);
 
-        // モデルにデータを追加
+        
         model.addAttribute("contents", allContents);
         model.addAttribute("completedContentIds", completedContentIds);
+        model.addAttribute("levelImagePaths", levelImagePaths);
 
         return "contents"; // 完了状況を表示するテンプレート
     }

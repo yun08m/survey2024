@@ -1,5 +1,6 @@
 body{
 	margin: 0;
+	background-color: #d0bc57;
 }
 
 
@@ -16,7 +17,8 @@ div.main{
 /**************/
 
 header.menu{
-	background: #2a2a72;
+	/*background: #2a2a72;  : #2c40aa#2c40aa*/
+	background:#2c40aa;
 	background-size: contain;
     height: 60px;
     position: relative;
@@ -103,7 +105,7 @@ li.navi_item:hover > ul.sub_navi{
 }
 
 ul.sub_navi{
-	background-color: #49d7ff;
+	background-color: #b8aa62;
 	border-top: 0;
 	border-radius: 0 0 4px 4px;
 	box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.055);
@@ -133,11 +135,13 @@ li.sub_navi_item:hover > a.sub_navi_item_link > .caret{
 }
 
 a.sub_navi_item_link{
-	color: #fefff7;
+	font-weight: bold;
+	color: #2c40aa;
 	display: block;
 	padding: 12px 24px;
 	text-decoration: none;
 }
+
 
 a.sub_navi_item_link:hover{
 	color: #fefff7;
@@ -161,19 +165,28 @@ li.sub_navi_item_freeze{
 	background-color: #aaaaaa;
 }
 
-/*li.sub_navi_item_freeze:hover > a.sub_navi_item_link_freeze{
-	background-color: rgba( 255, 255, 255, 0.4);
+.navi_item p{
+	color: #d0bc57;
+}
+
+.navi_item a{
+	color:#2c40aa;
+}
+
+li.sub_navi_item_freeze:hover > a.sub_navi_item_link_freeze{
+	background-color:#d0bc57;
 }
 
 li.sub_navi_item_freeze:hover > a.sub_navi_item_link_freeze > .caret{
 	border-top-color: rgb( 255, 255, 255 );
-}*/
+}
 
 a.sub_navi_item_link_freeze{
 	color: #fefff7;
 	display: block;
 	padding: 12px 24px;
 	text-decoration: none;
+	font-weight: bold;
 }
 
 a.sub_navi_item_link_freeze:hover{
@@ -224,10 +237,12 @@ div.user_info{
 }
 
 h1.contents_title{
+	border: solid 3px #2a2a72;
+	color: #2c40aa;
 	display: block;
 	width: 100%;
 	padding: 0.75em	1em;
-	background-color: #009ffd;
+	background-color:#d0bc57;
 	font-size: 20px;
 	margin:0;
 }
@@ -258,7 +273,7 @@ ul.contents_sub_navi{
 	padding: 0;
 	top: 0;
 	left: 0;
-	background-color: #009ffd;
+	background-color: #b8aa62;
 	z-index: 10;
 	white-space: nowrap;
 	overflow: visible;
@@ -354,7 +369,8 @@ div.contents_navi{
 	overflow: hidden;
 	/* overflow: auto; メニューをスクロールさせる場合*/
 	height: 100%;
-	background-color: #49d7ff;
+	/*サイドメニューのカラー*/
+	background-color: #b8aa62;
 	-webkit-overflow-scrolling: touch;
 	
 }
@@ -472,7 +488,7 @@ iframe.contents_main{
 
 .experience-box{
 	 width: 75%;
-	 max-width: 950px;
+	 max-width: 800px;
 	margin-right: 50px;
 }
 
@@ -487,7 +503,7 @@ iframe.contents_main{
     text-align: center; /* テキストを中央揃え */
     font-size: 1.2em; /* フォントサイズを調整 */
     font-weight: bold; /* 太字にする */
-    color: #fcaa00; /* 色を指定 */
+    color: #2c40aa; /* 色を指定 */
     margin-bottom: 10px; /* 下に余白を追加 */
 }
 
@@ -498,7 +514,7 @@ iframe.contents_main{
     border-radius: 8px;
     overflow: hidden;
     font-weight: bold;
-    color: #fcaa00;
+    color: #2c40aa;
 }
 
 .level-image img{
@@ -522,7 +538,7 @@ iframe.contents_main{
 /* チェックマークのスタイル */
 /* 完了時のチェックマークのデザイン */
 .completed {
-    color: green; /* チェックマークを緑色に */
+    color: #2c40aa; /* チェックマークを緑色に */
     font-size: 1.5em; /* チェックマークの大きさ */
     margin-right: 5px; /* チェックマークとテキストの間にスペース */
 }

@@ -11,10 +11,10 @@
 <body>
 <div class="main">
     <header class="menu">
-        <h1 class="title"><img  src="../images/AIRS.png" height="45"></h1>
+        <h1 class="title"><img  src="../images/helloprocessing_blue.png" height="45"></h1>
         <ul class="navi">
-            <li class="navi_item"><a target="mainPage" class="navi_item_link" href="/contents"><img src="../images/home.png"></a></li>
-            <li class="navi_item"><a class="navi_item_link" href="https://twitter.com/share?url=http://airs.sie.dendai.ac.jp/AIRS/top/&via=AIRS_Authoring&related=AIRS_Authoring&text=AIRS公式サイト　TOP PAGE" rel="nofollow" target="_blank"><img src="../images/twitter.png"></a></li>
+            <li class="navi_item"><a target="mainPage" class="navi_item_link" href="/contents"><img src="../images/clown.png"></a></li>
+            <!--<li class="navi_item"><a class="navi_item_link" href="https://twitter.com/share?url=http://airs.sie.dendai.ac.jp/AIRS/top/&via=AIRS_Authoring&related=AIRS_Authoring&text=AIRS公式サイト　TOP PAGE" rel="nofollow" target="_blank"><img src="../images/twitter.png"></a>li></-->
             <li class="navi_item"><a class="navi_item_link" href="#"><img src="../images/menu.png"> <span class="caret"></span></a>
                 <ul class="sub_navi">
      
@@ -57,19 +57,31 @@
 
         <!-- 経験値ボックス -->
 <div class="experience-box" th:if="${user != null}">
-    <p class="level-display">レベル: <span th:text="${level+1}"></span></p>
+    <p class="level-display">ＬＥＶＥＬ: <span th:text="${level+1}"></span></p>
     <div class="level-progress-container">
-         レベル画像の表示 
+        <!-- レベル画像の表示 -->
         <!--<div class="level-image" th:if="${session.loggedInUser != null}">
             <img id="levelImage" th:src="${session.levelImagePath != null && session.levelImagePath.matches('/images/level[1-4]\\.jpg') ? session.levelImagePath : '/images/level1.jpg'}" alt="Level Image">
         </div>-->
         
-        <div class="level-image" th:if="${session.loggedInUser != null}">
+        <!--<div class="level-image" th:if="${session.loggedInUser != null}">
     <img id="levelImage" 
          th:src="${session.levelImagePath != null && session.levelImagePath.matches('/images/level[1-4]\\.jpg') ? session.levelImagePath : '/images/level1.jpg'}" 
          data-default-src="/images/level1.jpg" 
          alt="Level Image">
+</div>-->
+
+
+<!--2回目の修正
+<div class="level-image">
+    <img id="levelImage" th:src="${levelImagePath}" alt="Level Image">
+</div>-->
+
+<div class="level-image">
+    <img id="levelImage" th:src="${loggedInUser != null ? loggedInUser.levelImagePath : '/images/default.jpg'}" alt="Level Image">
 </div>
+
+
 
 
          <!--プログレスバー -->
@@ -93,7 +105,11 @@
 </div>
 
 <!-- スクリプト -->
+<script>
+    const serverLevelImagePath = /*[[${levelImagePath}]]*/ ''; // サーバーからの初期値
+</script>
 <script src="/js/updateIndex.js"></script>
+
 
 </body>
 </html>

@@ -66,15 +66,20 @@ public class LessonController {
                 User updatedUser = userService.findByName(user.getName());
                 session.setAttribute("loggedInUser", updatedUser);
 
-                // 完了したレッスンIDリストを作成
-                List<Long> completedContentIds = completedLessonRepository.findByUserId(user.getId())
-                        .stream().map(CompletedLesson::getLessonId).collect(Collectors.toList());
+                // レベルを計算
+                int level = updatedUser.getExperiencePoints() / 100;
+                String levelImagePath = "/images/level" + (level + 1) + ".jpg";
+
+                // データベースに保存
+                userService.updateLevelImagePath(user.getId(), levelImagePath);
+
+                // セッションも更新
+                session.setAttribute("levelImagePath", levelImagePath);
 
                 // レスポンスに必要な情報を追加
                 response.put("success", true);
                 response.put("updatedExperiencePoints", updatedUser.getExperiencePoints());
-                response.put("completedContentIds", completedContentIds);
-                response.put("levelImagePath", userService.getLevelImagePath(updatedUser)); // レベル画像パス
+                response.put("levelImagePath", updatedUser.getLevelImagePath());
 
                 return ResponseEntity.ok(response);
             } else {
@@ -90,6 +95,20 @@ public class LessonController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
     }
+	/*１２２０
+	 * @GetMapping("/lessonComplete") public String showLessonComplete(HttpSession
+	 * session, Model model) { // セッションからデータを取得 User user = (User)
+	 * session.getAttribute("loggedInUser"); String levelImagePath = (String)
+	 * session.getAttribute("levelImagePath");
+	 * 
+	 * if (user != null) { model.addAttribute("message",
+	 * "レッスンを完了しました。経験値10ポイント獲得！"); model.addAttribute("levelImagePath",
+	 * levelImagePath); return "lessonComplete"; } else {
+	 * model.addAttribute("error", "ログインが必要です。"); return "redirect:/login"; } }
+	 */
+    
+    
+    
 
     
 	/*
@@ -136,8 +155,15 @@ public class LessonController {
             // ユーザーの経験値やレベル画像パスを取得
             int experiencePoints = user.getExperiencePoints();
             int level = experiencePoints / 100;
-            String levelImagePath = "images/level" + (level + 1) + ".jpg";  // レベルごとの画像パス
-
+            String levelImagePath = (String) session.getAttribute("levelImagePath");
+            if (levelImagePath == null) {
+                // セッションにない場合のみ計算
+                levelImagePath = "/images/level" + ((user.getExperiencePoints() / 100) + 1) + ".jpg";
+                session.setAttribute("levelImagePath", levelImagePath);
+            }
+			/*
+			 * String levelImagePath = "images/level" + (level + 1) + ".jpg"; // レベルごとの画像パス
+			 */
             // レスポンスにデータを追加
             response.put("experiencePoints", experiencePoints);
             response.put("levelImagePath", levelImagePath);

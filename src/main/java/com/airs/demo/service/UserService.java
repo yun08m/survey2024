@@ -19,6 +19,14 @@ public class UserService {
         userRepository.save(user);  // UserRepositoryを使ってユーザーを保存
     }
     
+    public void updateLevelImagePath(Long userId, String levelImagePath) {
+        User user = userRepository.findById(userId)
+                                  .orElseThrow(() -> new RuntimeException("User not found"));
+        user.setLevelImagePath(levelImagePath);
+        userRepository.save(user);
+    }
+
+    
  // ユーザー名とパスワードでユーザーを検証するメソッド
     public User validateUser(String name, String password) {
         return userRepository.findByNameAndPassword(name, password);  // DBからユーザーを検索
@@ -61,6 +69,8 @@ public class UserService {
         System.out.println("Updated Experience Points: " + user.getExperiencePoints());
 
     }
+    
+    
 
 }
 
