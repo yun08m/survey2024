@@ -57,6 +57,7 @@ li.username{
 li.navi_item{
 	display: inline-block;
 	list-style-type: none;
+	
 
 	/*アニメーション*/
 	-webkit-transition: all 0.2s;
@@ -317,6 +318,30 @@ li.contents_sub_navi_item{
 li.contents_sub_navi_item:hover > a.contents_sub_navi_item_link{
 	background-color: rgba( 255, 255, 255, 0.4);
 }
+
+/*最初に*/
+
+
+a.first_description{
+	font-weight: bold;
+	color: rgb(255, 255, 255);
+	background-color: #b8aa62;
+	display: block;
+	padding: 12px 24px;
+	text-decoration: none;
+	
+}
+
+
+a.first_description:hover{
+	color: #fefff7;
+	display: block;
+	padding: 12px 24px;
+	text-decoration: none;
+}
+
+
+
 
 /**********************/
 /* contentsメニュー部 */

@@ -43,10 +43,12 @@ public class LoginController {
             int level = loggedInUser.getExperiencePoints() / 100;
             
 
-            // レベルごとの画像パスを決定
-            String levelImagePath = "images/level" + (level + 1) +".jpg";
-         // レベルごとの画像パスをセッションに保存
-            session.setAttribute("levelImagePath", levelImagePath);
+            String levelImagePath = (String) session.getAttribute("levelImagePath");
+            if (levelImagePath == null) {
+                // 初めてログインする場合、計算してセッションに保存
+                levelImagePath = "/images/level" + ((user.getExperiencePoints() / 100) + 1) + ".jpg";
+                session.setAttribute("levelImagePath", levelImagePath);
+            }
             System.out.println("Calculated levelImagePath: " + levelImagePath);
 
 
