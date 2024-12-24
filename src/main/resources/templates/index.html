@@ -27,7 +27,11 @@
                 <p>name: <span th:text="${user.name}"></span></p>
             </li>
             <li th:if="${session.loggedInUser == null}" class="navi_item">
-                <a href="/login">ログイン</a>
+                <a class="log" href="/login">ログイン</a>
+                
+            </li>
+            <li th:if="${session.loggedInUser == null}" class="navi_item">
+            	<a class="log" href="/register">新規登録</a>
             </li>
         </ul>
     </header>

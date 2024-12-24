@@ -16,6 +16,10 @@ div.main{
 /* header部分 */
 /**************/
 
+.navi ul navi_item .log{
+	color: #fefff7;
+}
+
 header.menu{
 	/*background: #2a2a72;  : #2c40aa#2c40aa*/
 	background:#2c40aa;
@@ -170,9 +174,9 @@ li.sub_navi_item_freeze{
 	color: #d0bc57;
 }
 
-.navi_item a{
+/*.navi_item a{
 	color:#2c40aa;
-}
+}*/
 
 li.sub_navi_item_freeze:hover > a.sub_navi_item_link_freeze{
 	background-color:#d0bc57;
@@ -321,24 +325,20 @@ li.contents_sub_navi_item:hover > a.contents_sub_navi_item_link{
 
 /*最初に*/
 
-
-a.first_description{
-	font-weight: bold;
-	color: rgb(255, 255, 255);
-	background-color: #b8aa62;
-	display: block;
-	padding: 12px 24px;
-	text-decoration: none;
-	
+a.first_description {
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+    background-color: #b8aa62;
+    display: block;
+    padding: 12px 24px;
+    text-decoration: none;
 }
 
-
-a.first_description:hover{
-	color: #fefff7;
-	display: block;
-	padding: 12px 24px;
-	text-decoration: none;
+a.first_description:hover {
+	background-color: rgba(255, 255, 255, 0.4);
+    text-decoration: none;    /* 再確認のために指定 */
 }
+
 
 
 
@@ -369,6 +369,10 @@ div.contents_navi{
 .contents_navi a:hover {
 	-webkit-transition: all 0.6s ease;
 	transition: all 0.6s ease;
+	color: #fefff7;
+	display: block;
+	padding: 12px 24px;
+	text-decoration: none;
 }
 .contents_navi * {
 	-webkit-box-sizing: border-box;

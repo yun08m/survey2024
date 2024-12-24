@@ -60,7 +60,7 @@ public class LessonController {
                 lessonService.completeLesson(lessonId, user.getId());
 
                 // 経験値を追加
-                userService.addExperiencePoints(user.getId(), 10);
+                userService.addExperiencePoints(user.getId(), 20);
 
                 // 更新されたユーザー情報を取得し、セッションを更新
                 User updatedUser = userService.findByName(user.getName());
