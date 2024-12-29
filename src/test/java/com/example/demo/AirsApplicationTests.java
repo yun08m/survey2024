@@ -3,7 +3,10 @@ package com.example.demo;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
+import com.airs.demo.AirsApplication;
+
+@SpringBootTest(classes = AirsApplication.class)
+
 class AirsApplicationTests {
 
 	@Test
